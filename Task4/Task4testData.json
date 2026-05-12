@@ -1,0 +1,42 @@
+{
+  "testGroups": [
+    {
+      "name": "Валидные даты",
+      "cases": [
+        { "day": 21, "month": 3, "expected": "Овен" },
+        { "day": 21, "month": 4, "expected": "Телец" },
+        { "day": 21, "month": 5, "expected": "Близнецы" },
+        { "day": 22, "month": 6, "expected": "Рак" },
+        { "day": 23, "month": 7, "expected": "Лев" },
+        { "day": 24, "month": 8, "expected": "Дева" },
+        { "day": 24, "month": 9, "expected": "Весы" },
+        { "day": 24, "month": 10, "expected": "Скорпион" },
+        { "day": 23, "month": 11, "expected": "Стрелец" },
+        { "day": 23, "month": 12, "expected": "Козерог" },
+        { "day": 20, "month": 1, "expected": "Водолей" },
+        { "day": 20, "month": 2, "expected": "Рыбы" }
+      ]
+    },
+    {
+      "name": "Граничные случаи",
+      "cases": [
+        { "day": 20, "month": 3, "expected": "Рыбы" },
+        { "day": 20, "month": 4, "expected": "Овен" },
+        { "day": 21, "month": 4, "expected": "Телец" },
+        { "day": 22, "month": 12, "expected": "Стрелец" },
+        { "day": 19, "month": 2, "expected": "Рыбы" },
+        { "day": 20, "month": 3, "expected": "Рыбы" }
+      ]
+    },
+    {
+      "name": "Невалидные даты",
+      "cases": [
+        { "day": 31, "month": 4, "expected": "Ошибка: неверный день" },
+        { "day": 15, "month": 13, "expected": "Ошибка: неверный месяц" },
+        { "day": 0, "month": 1, "expected": "Ошибка: неверный день" },
+        { "day": 32, "month": 1, "expected": "Ошибка: неверный день" },
+        { "day": 31, "month": 4, "expected": "Ошибка: неверный день" }
+      ]
+    }
+  ]
+}

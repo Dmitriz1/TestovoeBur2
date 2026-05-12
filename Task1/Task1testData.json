@@ -1,0 +1,38 @@
+{
+  "testGroups": [
+    {
+      "name": "Валидные данные",
+      "cases": [
+        { "word": "Довод", "expected": true },
+        { "word": "Шалаш", "expected": true },
+        { "word": "Дмитрий", "expected": false }
+      ]
+    },
+    {
+      "name": "Проверка Е != Ё",
+      "cases": [
+        { "word": "ЕоЁ", "expected": false }
+      ]
+    },
+    {
+      "name": "Смешанные языки",
+      "cases": [
+        { "word": "Довoд", "expected": false }
+      ]
+    },
+    {
+      "name": "Специальные символы",
+      "cases": [
+        { "word": "До-од", "expected": true },
+        { "word": "Д0в0д", "expected": true }
+      ]
+    },
+    {
+      "name": "Чистые числа",
+      "cases": [
+        { "word": "12321", "expected": true },
+        { "word": "12345", "expected": false }
+      ]
+    }
+  ]
+}

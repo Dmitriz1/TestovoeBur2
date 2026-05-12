@@ -1,0 +1,31 @@
+{
+  "testGroups": [
+    {
+      "name": "Валидные числа",
+      "cases": [
+        { "number": 123, "expected": [1, 2, 3]},
+        { "number": 23, "expected": [2, 3]},
+        { "number": 10000, "expected": [1, 0, 0, 0, 0]}
+      ]
+    },
+    {
+      "name": "Числа с десятичной точкой",
+      "cases": [
+        { "number": 1.23, "expected": [1, 2, 3]},
+        { "number": 3.10, "expected": [3, 1]}
+      ]
+    },
+    {
+      "name": "Нулевые значения",
+      "cases": [
+        { "number": 0, "expected": [0]}      ]
+    },
+    {
+      "name": "Нестандартные значения",
+      "cases": [
+        {"number": -123, "expected": [1, 2, 3]},
+        {"string": "abc", "expected": []}
+      ]
+    }
+  ]
+}
