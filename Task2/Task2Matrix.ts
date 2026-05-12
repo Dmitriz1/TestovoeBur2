@@ -21,7 +21,7 @@ export function createMatrix(rows: number, cols: number, data: number[]): Matrix
 }
 
 // Сложение двух матриц
-export function Summ(A: Matrix, B: Matrix): Matrix {
+export function summ(A: Matrix, B: Matrix): Matrix {
     if (A.length !== B.length || A[0].length !== B[0].length) {
         throw new Error("Матрицы должны иметь одинаковый размер");
     }
@@ -44,7 +44,8 @@ export function multiplyScalar(A: Matrix, scalar: number): Matrix {
 
 //Деление матрицы на число (скаляр)
 export function divideScalar(A: Matrix, scalar: number): Matrix {
-    if (scalar === 0) throw new Error("Деление на ноль невозможно");
+    if (scalar === 0)
+        throw new Error("Деление на ноль невозможно");
     return A.map(row => row.map(val => val / scalar));
 }
 
@@ -65,7 +66,8 @@ export function toUpperTriangular(A: Matrix): Matrix {
         [matrix[i], matrix[maxRow]] = [matrix[maxRow], matrix[i]];
 
         for (let k = i + 1; k < rows; k++) {
-            if (matrix[i][i] === 0) continue;
+            if (matrix[i][i] === 0)
+                continue;
 
             const factor = matrix[k][i] / matrix[i][i];
             for (let j = i; j < cols; j++) {

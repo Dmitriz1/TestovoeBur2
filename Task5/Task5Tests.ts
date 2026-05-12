@@ -1,13 +1,31 @@
 import { guess } from './Task5Guess';
-import { Task5testData } from './Task5testData';
+import * as fs from 'fs';
+
+interface TestCase {
+    input: string[];
+    expected: string[];
+}
+
+interface TestGroup {
+    name: string;
+    cases: TestCase[];
+}
+
+interface TestData {
+    testGroups: TestGroup[];
+}
 
 describe('Функция guess', () => {
-    const data = new Task5testData();
+    const data: TestData = JSON.parse(fs.readFileSync('Task5/Task5testData.json', 'utf-8'));
 
-    data.validGuess.forEach((test, index) => {
-        it(`должен корректно обработать сценарий ${index + 1}`, () => {
-            const result = guess(test.input);
-            expect(result).toEqual(test.expected);
+    for (const { name, cases } of data.testGroups) {
+        describe(name, () => {
+            for (const [index, testCase] of cases.entries()) {
+                it(`должен корректно обработать сценарий ${index + 1}`, () => {
+                    const result = guess(testCase.input);
+                    expect(result).toEqual(testCase.expected);
+                });
+            }
         });
-    });
+    }
 });

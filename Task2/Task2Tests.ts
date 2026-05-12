@@ -1,8 +1,35 @@
 import * as m from "./Task2Matrix";
-import {Task2TestData} from "./Task2testData";
+import * as fs from 'fs';
+
+interface MatrixCreationData {
+    rows: number;
+    cols: number;
+    data: number[];
+    expected?: number[][];
+}
+
+interface ScalarOperationData {
+    matrix: number[][];
+    scalar: number;
+    expected: number[][];
+}
+
+interface TestData {
+    validCreation: MatrixCreationData;
+    invalidCreation: MatrixCreationData;
+    m1: number[][];
+    m2: number[][];
+    sumExpected: number[][];
+    diffExpected: number[][];
+    triangularInput: number[][];
+    swapMatrix: number[][];
+    scalarMultiplication: ScalarOperationData;
+    scalarDivision: ScalarOperationData;
+    original: number[][];
+}
 
 describe('Операции с матрицами', () => {
-    const data = new Task2TestData();
+    const data: TestData = JSON.parse(fs.readFileSync('Task2/Task2TestData.json', 'utf-8'));
 
     describe('Создание матрицы', () => {
         it('должен правильно создавать матрицу', () => {
@@ -18,7 +45,7 @@ describe('Операции с матрицами', () => {
 
     describe('Арифметические операции', () => {
         it('должен складывать две матрицы', () => {
-            expect(m.Summ(data.m1, data.m2)).toEqual(data.sumExpected);
+            expect(m.summ(data.m1, data.m2)).toEqual(data.sumExpected);
         });
 
         it('должен вычитать одну матрицу из другой', () => {
@@ -26,11 +53,13 @@ describe('Операции с матрицами', () => {
         });
 
         it('должен умножать на скаляр', () => {
-            expect(m.multiplyScalar(data.m1, 10)).toEqual([[10, 20], [30, 40]]);
+            const { matrix, scalar, expected } = data.scalarMultiplication;
+            expect(m.multiplyScalar(matrix, scalar)).toEqual(expected);
         });
 
         it('должен делить на скаляр', () => {
-            expect(m.divideScalar([[10, 20]], 10)).toEqual([[1, 2]]);
+            const { matrix, scalar, expected } = data.scalarDivision;
+            expect(m.divideScalar(matrix, scalar)).toEqual(expected);
         });
     });
 
@@ -43,10 +72,9 @@ describe('Операции с матрицами', () => {
         });
 
         it('не должен изменять оригинальную матрицу (immutability)', () => {
-            const original = [[1, 2], [3, 4]];
-            const copy = JSON.parse(JSON.stringify(original));
-            m.toUpperTriangular(original);
-            expect(original).toEqual(copy);
+            const copy = JSON.parse(JSON.stringify(data.original));
+            m.toUpperTriangular(data.original);
+            expect(data.original).toEqual(copy);
         });
 
         it('должен корректно обрабатывать матрицы с перестановкой строк', () => {

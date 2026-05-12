@@ -19,15 +19,11 @@ export function guess(responses: string[]): string[] {
         const response = responses[responseIndex++];
 
         if (response === "равно") {
-            if (attempts == 1) {
-                output.push(`Ура! Я угадал число за ${attempts} попытку: ${mid}`);
-                return output;
-            }
-            else {
-                output.push(`Ура! Я угадал число за ${attempts} попыток: ${mid}`);
-                return output;
-            }
-        } else if (response === "больше") {
+            const attemptWord = attempts === 1 ? "попытку" : "попыток";
+            output.push(`Ура! Я угадал число за ${attempts} ${attemptWord}: ${mid}`);
+            return output;
+        }
+        else if (response === "больше") {
             low = mid + 1;
         } else if (response === "меньше") {
             high = mid - 1;

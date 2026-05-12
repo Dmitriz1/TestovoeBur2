@@ -1,30 +1,32 @@
-import {Task4testData} from "./Task4testData";
-import {zOpred} from "./Task4Zodiak";
+import { zodiacIdentifier } from "./Task4Zodiak";
+import * as fs from 'fs';
+
+interface TestCase {
+    day: number;
+    month: number;
+    expected: string;
+}
+
+interface TestGroup {
+    name: string;
+    cases: TestCase[];
+}
+
+interface TestData {
+    testGroups: TestGroup[];
+}
 
 describe('Проверка определения знака зодиака', () => {
-    const data = new Task4testData();
+    const data: TestData = JSON.parse(fs.readFileSync('Task4/Task4testData.json', 'utf-8'));
 
-    describe('Валидные даты', () => {
-        data.validDates.forEach(({ day, month, expected }) => {
-            it(`должен вернуть "${expected}" для ${day}/${month}`, () => {
-                expect(zOpred(day, month)).toBe(expected);
-            });
+    for (const { name, cases } of data.testGroups) {
+        describe(name, () => {
+            for (const { day, month, expected } of cases) {
+                it(`должен вернуть "${expected}" для ${day}/${month}`, () => {
+                    expect(zodiacIdentifier(day, month)).toBe(expected);
+                });
+            }
         });
-    });
-
-    describe('Граничные случаи', () => {
-        data.edgeCases.forEach(({ day, month, expected }) => {
-            it(`должен вернуть "${expected}" для ${day}/${month}`, () => {
-                expect(zOpred(day, month)).toBe(expected);
-            });
-        });
-    });
-
-    describe('Невалидные даты', () => {
-        data.invalidDates.forEach(({ day, month, expected }) => {
-            it(`должен вернуть "${expected}" для ${day}/${month}`, () => {
-                expect(zOpred(day, month)).toBe(expected);
-            });
-        });
-    });
+    }
 });
+
