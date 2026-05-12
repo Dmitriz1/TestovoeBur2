@@ -1,4 +1,4 @@
-import { isPalindrome } from "./Task1Palindrome";
+import { isPalindrome } from "./PalindromeCheck";
 import * as fs from 'fs';
 
 interface testCase {

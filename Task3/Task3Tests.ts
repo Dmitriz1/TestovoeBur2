@@ -1,4 +1,4 @@
-import { getDigits } from "./Task3Numbers";
+import { getDigits } from "./NumbersToDigits";
 import * as fs from 'fs';
 
 interface TestCase {

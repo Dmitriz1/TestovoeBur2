@@ -1,4 +1,4 @@
-import { guess } from './Task5Guess';
+import { guess } from './GuessTheNumber';
 import * as fs from 'fs';
 
 interface TestCase {

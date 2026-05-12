@@ -1,4 +1,4 @@
-import * as m from "./Task2Matrix";
+import * as m from "./MatrixOperations";
 import * as fs from 'fs';
 
 interface MatrixCreationData {

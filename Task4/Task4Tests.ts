@@ -1,4 +1,4 @@
-import { zodiacIdentifier } from "./Task4Zodiak";
+import { zodiacIdentifier } from "./ZodiakByDate";
 import * as fs from 'fs';
 
 interface TestCase {
