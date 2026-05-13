@@ -24,9 +24,9 @@ export function guess(responses: string[]): string[] {
             return output;
         }
         else if (response === "больше") {
-            low = mid + 1;
+            low = low*2;
         } else if (response === "меньше") {
-            high = mid - 1;
+            high = high/2;
         } else {
             output.push("Пожалуйста, введите корректный ответ: 'больше', 'меньше' или 'равно'");
         }

@@ -20,7 +20,7 @@
     [-2, 7, 2]
   ],
   "swapMatrix": [
-    [0, 1],
+    [2, 1],
     [1, 1]
   ],
   "scalarMultiplication": {

@@ -5,14 +5,12 @@
 
 Задача 2.1. преобразовать матрицу в треугольную ( нижняя часть нули )
  */
+import {MatrixValidator} from "./MatrixValidator";
 
 type Matrix = number[][];
 
-// Создание матрицы
 export function createMatrix(rows: number, cols: number, data: number[]): Matrix {
-    if (data.length !== rows * cols) {
-        throw new Error("Количество элементов не соответствует размерности матрицы");
-    }
+    MatrixValidator.validateDataLength(rows, cols, data);
     const matrix: Matrix = [];
     for (let i = 0; i < rows; i++) {
         matrix.push(data.slice(i * cols, (i + 1) * cols));
@@ -22,59 +20,32 @@ export function createMatrix(rows: number, cols: number, data: number[]): Matrix
 
 // Сложение двух матриц
 export function summ(A: Matrix, B: Matrix): Matrix {
-    if (A.length !== B.length || A[0].length !== B[0].length) {
-        throw new Error("Матрицы должны иметь одинаковый размер");
-    }
+    MatrixValidator.validateDimensions(A, B);
     return A.map((row, i) => row.map((val, j) => val + B[i][j]));
 }
 
-//Вычитание двух матриц
+// Вычитание двух матриц
 export function subtract(A: Matrix, B: Matrix): Matrix {
-    if (A.length !== B.length || A[0].length !== B[0].length) {
-        throw new Error("Матрицы должны иметь одинаковый размер");
-    }
+    MatrixValidator.validateDimensions(A, B);
     return A.map((row, i) => row.map((val, j) => val - B[i][j]));
 }
 
-
-//Умножение матрицы на число (скаляр)
+// Умножение матрицы на число (скаляр)
 export function multiplyScalar(A: Matrix, scalar: number): Matrix {
     return A.map(row => row.map(val => val * scalar));
 }
 
-//Деление матрицы на число (скаляр)
+// Деление матрицы на число (скаляр)
 export function divideScalar(A: Matrix, scalar: number): Matrix {
-    if (scalar === 0)
-        throw new Error("Деление на ноль невозможно");
+    MatrixValidator.validateNonZeroScalar(scalar);
     return A.map(row => row.map(val => val / scalar));
 }
 
+
 //Преобразование в треугольную матрицу (с нулями внизу)
 export function toUpperTriangular(A: Matrix): Matrix {
-    const matrix = A.map(row => [...row]);
-    const rows = matrix.length;
-    const cols = matrix[0].length;
-
-    for (let i = 0; i < Math.min(rows, cols); i++) {
-        let maxRow = i;
-        for (let k = i + 1; k < rows; k++) {
-            if (Math.abs(matrix[k][i]) > Math.abs(matrix[maxRow][i])) {
-                maxRow = k;
-            }
-        }
-
-        [matrix[i], matrix[maxRow]] = [matrix[maxRow], matrix[i]];
-
-        for (let k = i + 1; k < rows; k++) {
-            if (matrix[i][i] === 0)
-                continue;
-
-            const factor = matrix[k][i] / matrix[i][i];
-            for (let j = i; j < cols; j++) {
-                matrix[k][j] -= factor * matrix[i][j];
-            }
-        }
-    }
-
-    return matrix;
+    // Здесь нет отдельной строки копирования, создание новой матрицы — часть процесса
+    return A.map((row, i) =>
+        row.map((val, j) => (i > j ? 0 : val))
+    );
 }
